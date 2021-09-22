@@ -1,15 +1,12 @@
 package com.ufrn.entities;
 
 import java.time.LocalDateTime;
-import java.time.ZoneOffset;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Entity
 @Table(name = "answers")
@@ -18,32 +15,36 @@ public class Answer {
     @Id
     private long id;
 
+    @Column
     private boolean isAccepted;
 
+    @Column
     private int score;
 
     @Column(columnDefinition = "TEXT")
     private String body;
 
+    @ManyToOne
+    private Question question;
+
+    @Column
     private LocalDateTime creationDate;
 
+    @Column
     private LocalDateTime lastActivityDate;
 
     public Answer() {
-
     }
 
-    @JsonCreator
-    public Answer(@JsonProperty("answer_id") long id, @JsonProperty("is_accepted") boolean isAccepted,
-            @JsonProperty("score") int score, @JsonProperty("body") String body,
-            @JsonProperty("creation_date") long creationDate,
-            @JsonProperty("last_activity_date") long lastActivityDate) {
+    public Answer(long id, boolean isAccepted, int score, String body, Question question, LocalDateTime creationDate,
+            LocalDateTime lastActivityDate) {
         this.id = id;
         this.isAccepted = isAccepted;
         this.score = score;
         this.body = body;
-        this.creationDate = LocalDateTime.ofEpochSecond(creationDate, 0, ZoneOffset.UTC);
-        this.lastActivityDate = LocalDateTime.ofEpochSecond(lastActivityDate, 0, ZoneOffset.UTC);
+        this.question = question;
+        this.creationDate = creationDate;
+        this.lastActivityDate = lastActivityDate;
     }
 
     public long getId() {
@@ -78,6 +79,14 @@ public class Answer {
         this.body = body;
     }
 
+    public Question getQuestion() {
+        return question;
+    }
+
+    public void setQuestion(Question question) {
+        this.question = question;
+    }
+
     public LocalDateTime getCreationDate() {
         return creationDate;
     }
@@ -96,7 +105,9 @@ public class Answer {
 
     @Override
     public String toString() {
-        return "Answer [body=" + body + ", creationDate=" + creationDate + ", id=" + id + ", isAccepted=" + isAccepted
-                + ", lastActivityDate=" + lastActivityDate + ", score=" + score + "]";
+        return "{" + " id='" + getId() + "'" + ", isAccepted='" + isAccepted() + "'" + ", score='" + getScore() + "'"
+                + ", body='" + getBody() + "'" + ", question='" + getQuestion() + "'" + ", creationDate='"
+                + getCreationDate() + "'" + ", lastActivityDate='" + getLastActivityDate() + "'" + "}";
     }
+
 }

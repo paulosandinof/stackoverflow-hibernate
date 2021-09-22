@@ -1,20 +1,11 @@
 package com.ufrn.entities;
 
 import java.time.LocalDateTime;
-import java.time.ZoneOffset;
-import java.util.Arrays;
-import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
-
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Entity
 @Table(name = "questions")
@@ -23,34 +14,28 @@ public class Question {
     @Id
     private long id;
 
+    @Column
     private String tags;
 
     @Column(columnDefinition = "TEXT")
     private String body;
 
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "question_id")
-    private List<Answer> answers;
-
+    @Column
     private LocalDateTime creationDate;
 
+    @Column
     private LocalDateTime lastActivityDate;
 
     public Question() {
 
     }
 
-    @JsonCreator
-    public Question(@JsonProperty("question_id") long id, @JsonProperty("tags") String[] tags,
-            @JsonProperty("body") String body, @JsonProperty("answers") List<Answer> answers,
-            @JsonProperty("creation_date") long creationDate,
-            @JsonProperty("last_activity_date") long lastActivityDate) {
+    public Question(long id, String tags, String body, LocalDateTime creationDate, LocalDateTime lastActivityDate) {
         this.id = id;
-        this.tags = Arrays.toString(tags);
+        this.tags = tags;
         this.body = body;
-        this.answers = answers;
-        this.creationDate = LocalDateTime.ofEpochSecond(creationDate, 0, ZoneOffset.UTC);
-        this.lastActivityDate = LocalDateTime.ofEpochSecond(lastActivityDate, 0, ZoneOffset.UTC);
+        this.creationDate = creationDate;
+        this.lastActivityDate = lastActivityDate;
     }
 
     public long getId() {
@@ -77,14 +62,6 @@ public class Question {
         this.body = body;
     }
 
-    public List<Answer> getAnswers() {
-        return answers;
-    }
-
-    public void setAnswers(List<Answer> answers) {
-        this.answers = answers;
-    }
-
     public LocalDateTime getCreationDate() {
         return creationDate;
     }
@@ -103,7 +80,7 @@ public class Question {
 
     @Override
     public String toString() {
-        return "Question [answers=" + answers + ", body=" + body + ", creationDate=" + creationDate + ", id=" + id
-                + ", lastActivityDate=" + lastActivityDate + ", tags=" + tags + "]";
+        return "Question { \\n\\tbody: " + body + ", \\n\\tcreationDate: " + creationDate + ", \\n\\tid: " + id
+                + ", \\n\\tlastActivityDate: " + lastActivityDate + ", \\n\\ttags: " + tags + "}";
     }
 }
