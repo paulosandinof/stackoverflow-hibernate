@@ -9,33 +9,33 @@
 
 <hibernate-configuration>
 
-    <session-factory>
+  <session-factory>
 
-        <!-- Database connection settings -->
-        <property name="connection.driver_class">com.mysql.cj.jdbc.Driver</property>
-        <property name="connection.url">jdbc:mysql://localhost:3306/stackoverflow-hibernate?useUnicode=true&amp;characterEncoding=utf-8</property>
-        <property name="connection.username">root</property>
-        <property name="connection.password">123456</property>
+    <!-- Database connection settings -->
+    <property name="connection.driver_class">com.mysql.cj.jdbc.Driver</property>
+    <property name="connection.url">jdbc:mysql://localhost:3306/stackoverflowhibernate?characterEncoding=utf-8&amp;useUnicode=true</property>
+    <property name="connection.username">root</property>
+    <property name="connection.password">123456</property>
 
-        <!-- JDBC connection pool (use the built-in) -->
-        <property name="connection.pool_size">1</property>
+    <!-- JDBC connection pool (use the built-in) -->
+    <property name="connection.pool_size">1</property>
 
-        <!-- SQL dialect -->
-        <property name="dialect">org.hibernate.dialect.MySQL5Dialect</property>
+    <!-- SQL dialect -->
+    <property name="dialect">org.hibernate.dialect.MySQL5Dialect</property>
 
-        <!-- Disable the second-level cache  -->
-        <property name="cache.provider_class">org.hibernate.cache.internal.NoCacheProvider</property>
+    <!-- Disable the second-level cache  -->
+    <property name="cache.provider_class">org.hibernate.cache.internal.NoCacheProvider</property>
 
-        <!-- Echo all executed SQL to stdout -->
-        <property name="show_sql">true</property>
+    <!-- Echo all executed SQL to stdout -->
+    <property name="show_sql">true</property>
 
-        <!-- Drop and re-create the database schema on startup -->
-        <property name="hbm2ddl.auto">create</property>
+    <!-- Drop and re-create the database schema on startup -->
+    <property name="hbm2ddl.auto">create</property>
 
-        <!-- Names the annotated entity class -->
-        <mapping class="com.ufrn.entities.Answer" />
-        <mapping class="com.ufrn.entities.Question" />
+    <!-- Names the annotated entity class -->
+    <mapping class="com.ufrn.entities.Answer" />
+    <mapping class="com.ufrn.entities.Question" />
 
-    </session-factory>
+  </session-factory>
 
 </hibernate-configuration>
